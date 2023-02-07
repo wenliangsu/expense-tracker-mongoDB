@@ -1,0 +1,11 @@
+# npm
+node_modules/*
+*.log
+*.gz
+
+.env
+
+# OS
+.DS_Store*
+Icon?
+._*
