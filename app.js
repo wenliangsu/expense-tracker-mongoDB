@@ -22,6 +22,7 @@ app.set('view engine', 'hbs');
 app.use(express.urlencoded({ extended: true }));
 
 app.use(methodOverride('_method'));
+
 app.use(routes);
 
 app.listen(port, () => {
