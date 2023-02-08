@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Section Invoke the package
 const express = require('express');
-const { engine } = require('express-handlebars');
+const exphbs = require('express-handlebars').engine;
 const methodOverride = require('method-override');
 
 const routes = require('./routes');
@@ -15,7 +15,7 @@ require('./config/mongoose');
 
 // Section package use
 // template and engine
-app.engine('hbs', engine({ extname: 'hbs' }));
+app.engine('hbs', exphbs({ extname: 'hbs' }));
 app.set('view engine', 'hbs');
 
 // body-parser
