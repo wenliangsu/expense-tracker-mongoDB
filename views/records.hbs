@@ -34,7 +34,7 @@
 
       {{!-- edit and delete button--}}
       <div class="edit-del d-inline px-1 col-7 text-end">
-        <a class="btn btn-success" href="/records/{{this._id}}/edit" name="edit" id="edit">修改</a>
+        <a class="btn btn-success" href="./records/{{this._id}}/edit" name="edit" id="edit">修改</a>
         <form action="/records/:id?_method=DELETE" style="display: inline" method="POST">
           <button class="btn btn-md btn-dark" style="display: inline" type="submit" name="delete"
             id="delete">刪除</button>
