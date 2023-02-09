@@ -2,6 +2,7 @@
   <div class="col-8 col-md-6 col-lg-4 m-auto">
     <div class="card card-body">
       <h1 class="text-center mt-3">註冊新帳號</h1>
+      {{> messages}}
       <form action="/users/register" method="POST">
         <div class="mb-3">
           <label for="name" class="mb-2 mt-2 h5">名字</label>
