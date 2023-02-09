@@ -21,6 +21,9 @@ app.set('view engine', 'hbs');
 // body-parser
 app.use(express.urlencoded({ extended: true }));
 
+// static file
+app.use(express.static('public'));
+
 app.use(methodOverride('_method'));
 
 app.use(routes);
