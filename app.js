@@ -9,6 +9,7 @@ const exphbs = require('express-handlebars').engine;
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('./config/passport');
 
 const routes = require('./routes');
 const app = express();
@@ -34,6 +35,10 @@ app.use(methodOverride('_method'));
 app.use(
   session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false })
 );
+
+// set passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // set flash message
 app.use(flash());

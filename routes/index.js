@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const users = require('./modules/users');
+
 const recordController = require('../controllers/record-controller');
 
 const { generalErrorHandler } = require('../middleware/error-handler');
