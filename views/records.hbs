@@ -1,8 +1,10 @@
 <section class="container mt-5" style="width: 40%;">
   {{!-- select category --}}
+  {{!-- todo 排序 --}}
   <div class="col-8 mx-auto">
+    {{> messages}}
     <form action="/search">
-      <select class="category-dropdown col-12" name="category-select" id="category-select">
+      <select class="category-dropdown col-12" name="category-selector" id="category-selector">
         <option name="defaultCategory">類別</option>
         <option value="1" name="category">家居物業</option>
         <option value="3" name="category">交通出行</option>
@@ -17,31 +19,33 @@
   {{!-- total amount --}}
   <div class="mt-3 d-flex justify-content-around my-2">
     <p style=" font-size: 20px; width: 80px;" name="totalAmount" id="totalAmount">總金額：</p>
-    <p style="font-size: 80px; font-weight:bold; color: orange;">56500</p>
+    <p style="font-size: 80px; font-weight:bold; color: orange;">{{totalAmount}}</p>
   </div>
 
   {{!-- Expense list--}}
   <ul class="list-group">
+    {{#each records}}
     <div class="col-8 d-flex align-items-center p-2">
-      <i class="fa-solid fa-house fa-xl text-danger" style="width: 20px;" name="icon" id="icon"></i>
+      <i class="{{this.categoryId.icon}} fa-xl text-danger" style="width: 20px;" name="icon" id="icon"></i>
       <div class="d-inline px-3 col-8" name="category" id="category">
-        <h5>家庭消費</h5>
-        <small class="date">2021-1-21</small>
+        <h5>{{this.categoryId.name}}</h5>
+        <small class="date">{{this.date}}</small>
       </div>
-      <div class="item-amount d-inline col-2" name="amount">
-        <h5>3000</h5>
+      <div class="item-amount d-inline col-2" name="amount" id="amount">
+        <h5>{{this.amount}}</h5>
       </div>
 
       {{!-- edit and delete button--}}
       <div class="edit-del d-inline px-1 col-7 text-end">
         <a class="btn btn-success" href="./records/{{this._id}}/edit" name="edit" id="edit">修改</a>
-        <form action="/records/:id?_method=DELETE" style="display: inline" method="POST">
+        <form action="/records/{{this._id}}?_method=DELETE" style="display: inline" method="POST">
           <button class="btn btn-md btn-dark" style="display: inline" type="submit" name="delete"
             id="delete">刪除</button>
         </form>
       </div>
     </div>
     </li>
+    {{/each}}
   </ul>
   {{!-- create button --}}
   <div class="d-flex justify-content-center mt-5">

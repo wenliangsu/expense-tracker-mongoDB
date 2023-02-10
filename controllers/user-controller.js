@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
 const userController = {
-  getLoginPage: (req, res, next) => {
+  getLoginPage: (req, res) => {
     res.render('login');
   },
   userLogin: (req, res) => {
