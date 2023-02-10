@@ -5,11 +5,14 @@ if (process.env.NODE_ENV !== 'production') {
 
 // Section Invoke the package
 const express = require('express');
-const exphbs = require('express-handlebars').engine;
+const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('./config/passport');
+
+const handlebarsHelpers = require('./helpers/handlebars-helpers');
+const { getUser } = require('./helpers/auth-helpers');
 
 const routes = require('./routes');
 const app = express();
@@ -19,7 +22,10 @@ require('./config/mongoose');
 
 // Section package use
 // template and engine
-app.engine('hbs', exphbs({ extname: 'hbs' }));
+app.engine(
+  'hbs',
+  exphbs.create({ extname: '.hbs', helpers: handlebarsHelpers }).engine
+);
 app.set('view engine', 'hbs');
 
 // body-parser
@@ -46,6 +52,7 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_message');
   res.locals.warning_msg = req.flash('warning_message');
   res.locals.error_msg = req.flash('error_message');
+  res.locals.user = getUser(req);
   next();
 });
 
