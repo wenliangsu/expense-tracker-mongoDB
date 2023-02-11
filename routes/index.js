@@ -10,9 +10,8 @@ const { generalErrorHandler } = require('../middleware/error-handler');
 router.use('/users', users);
 router.use('/records', authenticated, records);
 
-// todo 做到render records要移動
-
-router.get('/', (req, res) => res.redirect('/records'));
+// note 因已經設定驗證過使用者後導向records，所以req.query則要導向驗證過後的req.query，如果經過的話，則req.query會被擋在index這裡。
+router.use('/', authenticated, records);
 
 router.use('/', generalErrorHandler);
 
