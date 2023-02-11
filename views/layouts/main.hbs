@@ -16,11 +16,11 @@
   <header>
     <nav class="navbar navbar-dark" style="background-color: #999999;">
       <a class="navbar-brand" style="margin-left: 150px; font-weight: bold; font-size: 25px;" href="/">
-        家庭記帳本
+        {{#if user}}{{user.name}}'s{{/if}} 家庭記帳本
       </a>
-
+      {{#if user}}
       <a href="/users/logout" class="btn btn-outline-light" style="margin-right: 100px;">Logout</a>
-
+      {{/if}}
     </nav>
   </header>
 

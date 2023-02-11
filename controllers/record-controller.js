@@ -1,5 +1,6 @@
 const Record = require('../models/record');
 const Category = require('../models/category');
+
 const dayjs = require('dayjs');
 
 const recordController = {
@@ -7,6 +8,7 @@ const recordController = {
   getRecords: (req, res, next) => {
     // note req.query.XXX  XXX要跟hbs裡的name屬性一樣的名字才可以傳入
     const reqQuery = req.query.categorySelector;
+    const userId = req.user._id;
     const categorySelected = [];
     let totalAmount = 0;
     Category.find()
@@ -21,7 +23,7 @@ const recordController = {
             categorySelected.push(category);
           }
         });
-        Record.find({ categoryId: categorySelected })
+        Record.find({ userId, categoryId: categorySelected })
           // note 兩個table關聯起來的用法, 如同sequelize 的include，可以變成dataA.dataB.xxx
           .populate('categoryId')
           .lean()
