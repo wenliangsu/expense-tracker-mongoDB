@@ -41,6 +41,30 @@ const recordController = {
           });
       })
       .catch(err => next(err));
+  },
+  createRecord: (req, res, next) => {
+    Category.find()
+      .lean()
+      .then(categories => {
+        res.render('create-record', { categories });
+      });
+  },
+  postRecord: (req, res, next) => {
+    const userId = req.user._id;
+    const { name, date, categoryId, amount } = req.body;
+    console.log(req.body);
+
+    // verify the data
+    if (!name || !date || !categoryId || !amount) {
+      throw new Error('All field are required !!');
+    }
+
+    return Record.create({ name, date, categoryId, amount, userId })
+      .then(() => {
+        req.flash('success_message', 'The record is created successfully');
+        res.redirect('/records');
+      })
+      .catch(err => next(err));
   }
 };
 

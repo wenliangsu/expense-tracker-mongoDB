@@ -1,0 +1,17 @@
+<div class="row mt-5 form">
+  <div class="col-md-10 col-lg-6 m-auto">
+    <div class="card card-body p-5">
+      {{> messages}}
+      <pre class="text-center">*必填欄位<span class="h2">        請輸入你的支出</span></pre>
+
+      <form action="/records" method="POST" class="container form-group">
+        {{> create-record-form}}
+        {{!-- create button --}}
+        <div class="d-grid gap-4 col-6 mx-auto mt-5 mb-3">
+          <button type="submit" class="btn btn-outline-warning">新增支出</button>
+          <a class="btn btn-outline-secondary" href="/" role="button">返回</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

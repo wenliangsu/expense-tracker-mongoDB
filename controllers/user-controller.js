@@ -27,6 +27,7 @@ const userController = {
 
     User.findOne({ email })
       .then(user => {
+        // verify the data
         if (!name || !email || !password || !confirmPassword) {
           req.flash('warning_message', 'All fields are required !!');
           res.redirect('/users/register');
@@ -42,6 +43,7 @@ const userController = {
           res.redirect('/users/register');
         }
 
+        // set the password to hash code
         return bcrypt.hash(req.body.password, 10);
       })
       .then(hash => {
