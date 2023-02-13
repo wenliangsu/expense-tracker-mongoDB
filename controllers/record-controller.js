@@ -91,7 +91,7 @@ const recordController = {
       throw new Error('All field are required !!');
     }
 
-    //  note 操作語法可以看官方文件，先找id比對後，在更新物件(findByIdAndUpdate(id, update, option))
+    //  note id的帶入要變成_id,因使用著與資料的關聯建立後，要修正成mongoose的格式才找得到資料
     Record.findByIdAndUpdate(
       {
         _id: urlId,
@@ -105,8 +105,15 @@ const recordController = {
       }
     )
       .then(() => {
-        res.redirect('/');
+        res.redirect('/records');
       })
+      .catch(err => next(err));
+  },
+  deleteRecord: (req, res, next) => {
+    const userId = req.user._id;
+    const urlId = req.params.id;
+    Record.findByIdAndDelete({ _id: urlId, userId })
+      .then(() => res.redirect('/records'))
       .catch(err => next(err));
   }
 };

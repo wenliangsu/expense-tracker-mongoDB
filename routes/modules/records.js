@@ -9,6 +9,8 @@ router.post('/', recordController.createRecord);
 router.get('/:id/edit', recordController.getEditRecordPage);
 router.put('/:id', recordController.editRecord);
 
+router.delete('/:id', recordController.deleteRecord);
+
 router.get('/', recordController.getRecords);
 
 module.exports = router;
