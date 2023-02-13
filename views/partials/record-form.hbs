@@ -18,7 +18,12 @@
     <select class="form-control" name="categoryId" id="category" required>
       <option value="" selected disabled>請選擇類別</option>
       {{#each categories}}
+      {{#if ../record}}
+      {{!-- note 利用判別式辨別categories的每個類別的id是否有一個和上層傳入的record中category的id是相同 --}}
+      <option value="{{ this._id }}" {{#ifCond this ../record}}selected{{/ifCond}}>{{ this.name }}</option>
+      {{else}}
       <option value="{{ this._id }}">{{ this.name }}</option>
+      {{/if}}
       {{/each}}
     </select>
   </div>

@@ -42,17 +42,16 @@ const recordController = {
       })
       .catch(err => next(err));
   },
-  createRecord: (req, res, next) => {
+  getCreateRecordPage: (req, res, next) => {
     Category.find()
       .lean()
       .then(categories => {
         res.render('create-record', { categories });
       });
   },
-  postRecord: (req, res, next) => {
+  createRecord: (req, res, next) => {
     const userId = req.user._id;
     const { name, date, categoryId, amount } = req.body;
-    console.log(req.body);
 
     // verify the data
     if (!name || !date || !categoryId || !amount) {
@@ -63,6 +62,50 @@ const recordController = {
       .then(() => {
         req.flash('success_message', 'The record is created successfully');
         res.redirect('/records');
+      })
+      .catch(err => next(err));
+  },
+  getEditRecordPage: (req, res, next) => {
+    const userId = req.user._id;
+    const urlId = req.params.id;
+
+    Promise.all([Record.findById(urlId).lean(), Category.find().lean()])
+      .then(([record, categories]) => {
+        if (record.userId.toString() !== userId.toString()) {
+          throw new Error("You can't edit other peoples's record !!");
+        }
+
+        record.date = dayjs(record.date).format('YYYY-MM-DD');
+
+        return res.render('edit-record', { record, categories });
+      })
+      .catch(err => next(err));
+  },
+  editRecord: (req, res, next) => {
+    const userId = req.user._id;
+    const urlId = req.params.id;
+
+    const { name, date, categoryId, amount } = req.body;
+
+    if (!name || !date || !categoryId || !amount) {
+      throw new Error('All field are required !!');
+    }
+
+    //  note 操作語法可以看官方文件，先找id比對後，在更新物件(findByIdAndUpdate(id, update, option))
+    Record.findByIdAndUpdate(
+      {
+        _id: urlId,
+        userId
+      },
+      {
+        name,
+        date,
+        categoryId,
+        amount
+      }
+    )
+      .then(() => {
+        res.redirect('/');
       })
       .catch(err => next(err));
   }

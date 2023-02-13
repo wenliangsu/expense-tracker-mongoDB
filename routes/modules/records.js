@@ -3,8 +3,11 @@ const router = express.Router();
 
 const recordController = require('../../controllers/record-controller');
 
-router.get('/create', recordController.createRecord);
-router.post('/', recordController.postRecord);
+router.get('/create', recordController.getCreateRecordPage);
+router.post('/', recordController.createRecord);
+
+router.get('/:id/edit', recordController.getEditRecordPage);
+router.put('/:id', recordController.editRecord);
 
 router.get('/', recordController.getRecords);
 
