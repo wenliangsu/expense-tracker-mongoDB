@@ -1,5 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const FacebookStrategy = require('passport-facebook');
 const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
@@ -33,6 +34,36 @@ passport.use(
 
           return cb(null, user);
         });
+      });
+    }
+  )
+);
+
+// set passport facebook
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
+      callbackURL: 'http://localhost:3000/auth/facebook/callback',
+      profileFields: ['email', 'displayName']
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      const { name, email } = profile._json;
+      User.findOne({ email }).then(user => {
+        if (user) return cb(null, user);
+        const randomPassword = Math.random().toString(36).slice(-8);
+        bcrypt
+          .hash(randomPassword, 10)
+          .then(hash =>
+            User.create({
+              name,
+              email,
+              password: hash
+            })
+          )
+          .then(user => cb(null, user))
+          .catch(err => cb(err, false));
       });
     }
   )
