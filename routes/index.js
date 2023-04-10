@@ -9,6 +9,7 @@ const { authenticated } = require('../middleware/auth');
 const { generalErrorHandler } = require('../middleware/error-handler');
 
 router.use('/users', users);
+
 router.use('/auth', auth);
 router.use('/records', authenticated, records);
 
