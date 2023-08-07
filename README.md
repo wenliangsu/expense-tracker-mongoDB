@@ -1,7 +1,8 @@
 # Expense-tracker
 
-![ScteenShot](/public/images/ScreenShot-1.png)
-![ScteenShot](/public/images/ScreenShot-2.png)
+![ScreenShot](public/images/main.png)
+
+![ScreenShot](public/images/create.png)
 
 ## Introduction
 
@@ -38,26 +39,29 @@ Ths application can help people to record their expense everyday.
 1. Confirm you have already install npm, node.js and express
 2. Clone this repository
 
-   ```
+   ```bash
    https://github.com/wenliangsu/expense-tracker-mongoDB.git
    ```
 
 3. Set the MongoDB
 
-   ```
+   ```javascript
    MONGODB_URI=mongodb+srv://<Your MongoDB Account>:<Your MongoDB Password>@cluster0.xxxx.xxxx.net/<Your MongoDB Table><?retryWrites=true&w=majority
    ```
 
 4. Then type the command as following:
-   ```
+
+   ```bash
    npm run seed //if you have the seed
    npm run dev
    ```
+
 5. You will see the message, and copy it into your browser.
-   ```
+
+   ```bash
    Expense-tracker is listening on localhost: 3000
    ```
 
 ### Contributor
 
-_Wen Su_
+***Wen Su***
